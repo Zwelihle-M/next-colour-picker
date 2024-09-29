@@ -1,17 +1,24 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { NextUI } from "@/providers/nextui-provider";
+import { ThemeProvider } from "@/providers/next-theme-provider";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
+const degular = localFont({
+  src: "./fonts/Degular-Regular.otf",
+  variable: "--font-degular",
   weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
+})
+const degularLight = localFont({
+  src: "./fonts/Degular-Light.otf",
+  variable: "--font-degular-light",
   weight: "100 900",
-});
+})
+const degularVariable = localFont({
+  src: "./fonts/DegularVariable.ttf",
+  variable: "--font-degular-variable",
+  weight: "100 900",
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,12 +31,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${degular.variable} ${degularLight.variable} ${degularVariable.variable}  font-[family-name:var(--font-degular)]  antialiased`}
       >
-        {children}
+        <NextUI>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            themes={["light", "dark"]}
+          >
+         
+              {children}
+          
+          </ThemeProvider>
+        </NextUI>
       </body>
     </html>
   );
 }
+
